@@ -1,0 +1,17 @@
+{
+  "name": "maoo",
+  "version": "1.0.0",
+  "description": "Food delivery app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server"
+  },
+  "author": "Birhane Tinsae",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongoose": "^4.11.1",
+    "pug": "^2.0.0-rc.2"
+  }
+}
