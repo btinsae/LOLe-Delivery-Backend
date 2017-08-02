@@ -1,51 +1,34 @@
 const express=require('express');
-const path=require('path');
 const mongoose=require('mongoose');
 
-mongoose.connect('mongodb://localhost/nodekb');
+
+mongoose.connect('mongodb://localhost/maoo');
 
 let db=mongoose.connection;
 
 //check for connection
 db.once('open',()=>{
-	console.log("connected to mongodb.....")
+	console.log("connected to mongodb.....");
 })
 
 //check for database error
 db.on('error',(err)=>{
 	console.log(err);
-})
+});
 
 //app init
 const app=express();
 
+//initializing routes
+app.use('/api',require('./routes/api/client/request'));
+
 //Bring in models
-let Article=require('./models/article');
+let Item=require('./models/item');
 
-//load view engine
-app.set('views', path.join(__dirname,'views'));
-app.set('view engine','pug');
 
-app.get('/',(req,res)=>{
-	Article.find({},(err,articles)=>{
-if (err) {
-	console.log(err);
-}else{
-	res.render('index',{
-	articles:articles
-});
-}
 
-	});
 
-})
-app.get('/articles/add',(req,res)=>{
-	res.render('add_articles',{
-		title:'add',
-		
-	})
-})
-
-app.listen(3000,()=>{
+//listen for request
+app.listen(env.process.port| 3000,()=>{
 	console.log('Server started......');
-})
+});
