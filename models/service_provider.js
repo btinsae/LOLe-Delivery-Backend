@@ -18,6 +18,10 @@ const serviceProviderSchema = mongooes.Schema({
         type: String,
         required: [true, 'Name required']
     },
+    admin:{
+        email:String,
+        password:String
+    }
     address: {
         city:String,
         street:String,
@@ -33,10 +37,7 @@ const serviceProviderSchema = mongooes.Schema({
     created_date: {
         type: Date,
         default: Date.now()
-    },
-    password:{
-        type:String
-    },
+    },    
     image_url: {
         type: String,
         default:"http://sulaindianrestaurant.com/wp-content/uploads/2013/07/menu-placeholder.gif"
@@ -68,7 +69,7 @@ module.exports.addServiceProvider = (serviceProvider, callback) =>
     if(err){
         throw err;
     }
-    bcrypt.hash(serviceProvider.password, salt, (err, hash) => {
+    bcrypt.hash(serviceProvider.admin.password, salt, (err, hash) => {
     serviceProvider.password = hash;
     serviceProvider.save(callback);
 
@@ -79,3 +80,4 @@ module.exports.addServiceProvider = (serviceProvider, callback) =>
 module.exports.deleteServiceProvider=(id,callback)=>{
     ServiceProvider.delete
 };
+module.exports=GeoSchema;
